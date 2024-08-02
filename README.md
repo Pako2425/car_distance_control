@@ -25,7 +25,7 @@ This project is a car reversing sensor system that uses an HC-SR04 ultrasonic di
 
 ## Circuit Diagram
 
-![Circuit Diagram](path_to_your_circuit_diagram_image)
+![Schematic_car_distance_controle_2024-08-02](https://github.com/user-attachments/assets/8c2989b4-639e-4bf8-b3a5-aaa538de9c4e)
 
 ## Installation
 
