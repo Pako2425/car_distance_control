@@ -1,0 +1,1 @@
+Developed a parking sensor system based on the Atmega328p microcontroller, featuring a distance sensor, 16x2 LCD display, and buzzer. The system measures distance using timers and interrupts, displays the result on the LCD screen, and the buzzer emits a sound signal depending on the distance.
