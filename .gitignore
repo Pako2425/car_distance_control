@@ -1,0 +1,31 @@
+# Ignoring folder .vs
+.vs/
+
+# Ignoring Debug folder
+Debug/
+
+# Ignoring system generated files
+*.o
+*.d
+*.exe
+*.elf
+*.bin
+*.hex
+*.map
+*.lst
+*.lss
+*.tmp
+*.bak
+*.log
+
+#Ignoring IDE specyfic files
+*.atsuo
+*.suo
+*.user
+*.userosscache
+*.sdf
+*.ncb
+*.opensdf
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
