@@ -6,7 +6,9 @@ static volatile uint16_t startTime;
 static volatile uint16_t endTime;
 static volatile uint8_t distanceMeasurement = 0;
 static volatile uint8_t trigerPulse = 0;
-static volatile uint16_t answerPulseLength;
+static volatile uint16_t answerPulseLength = 0;
+
+static volatile double distance = 0.0;
 
 ISR(TIMER1_COMPA_vect) {
 	PORTB &= ~(1 << TRIGER_PORT);
@@ -38,8 +40,8 @@ void measurePulseLength() {
 	trigerEchoSensor();
 }
 
-double calculateDistance(uint16_t answerPulseLength) {
-	return (((double)(answerPulseLength * 4) / 1000000.0) * 170.0);
+void calculateDistance(uint16_t answerPulseLength) {
+	distance = (((double)(answerPulseLength * 4) / 1000000.0) * 170.0);
 }
 
 void DistanceSensor_init() {
@@ -48,7 +50,11 @@ void DistanceSensor_init() {
 	resetTimer1();
 }
 
-double DistanceSensor_measureDistance() {
+void DistanceSensor_measureDistance() {
 	measurePulseLength();
-	return calculateDistance(answerPulseLength);
+	calculateDistance(answerPulseLength);
+}
+
+double DistanceSensor_getDistance() {
+	return distance;
 }

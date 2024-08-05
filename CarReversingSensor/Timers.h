@@ -2,9 +2,9 @@
 #define TIMERS_H
 
 void Timers_init();
-void initTimer0();	//CTC
-void initTimer1();	//Capt
-void initTimer2();  //Normal
+void initTimer0();
+void initTimer1();
+void initTimer2();
 
 void stopTimer0();
 void startTimer0();

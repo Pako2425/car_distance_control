@@ -10,10 +10,29 @@
 
 //#define BUZZER_PORT PORTC0
 
-static uint16_t ovfCtn = 0;
-static uint16_t singleBitDuration = 0;
-
 static uint8_t distanceMeasure = 0;
+static uint16_t ovfTimer0Ctn = 0;
+static uint8_t milisRunning = 0;
+
+void milis(uint16_t timeInMs) {
+	if(milisRunning == 0) {
+		milisRunning = 1;
+		ovfTimer0Ctn = 0;
+		resetTimer0();
+		startTimer0();
+	}
+	else {
+		if(ovfTimer0Ctn < timeInMs) {
+			stopTimer0();
+			milisRunning = 0;
+		}
+	}
+}
+
+ISR(TIMER0_COMPA_vect) {
+	ovfTimer0Ctn ++;
+}
+
 /*
 void setFrequency(uint8_t bpm) {
 	if(bpm == 0) {

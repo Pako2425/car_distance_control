@@ -4,10 +4,9 @@
 
 void initTimer0() {
 	TCCR0A |= (1 << WGM01);
-	TCCR0B |= (1 << CS00);
-	OCR0A = 160;
+	OCR0A = 249;
 	TIMSK0 |= (1 << OCIE0A);
-	TCNT0 = 0;
+	TCCR0B |= (1 << CS01) | (1 << CS00);
 }
 
 void initTimer1() {
@@ -35,7 +34,7 @@ void Timers_init() {
 }
 
 void stopTimer0() {
-	TCCR0B &= ~(1 << CS00);
+	TCCR0B &= ~((1 << CS01) | (1 << CS00));
 }
 
 void stopTimer1() {
