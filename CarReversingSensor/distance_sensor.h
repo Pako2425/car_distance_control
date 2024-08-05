@@ -16,7 +16,7 @@
 ISR(TIMER0_COMPA_vect);
 ISR(TIMER1_CAPT_vect);
 void trigerEchoSensor();
-uint16_t measurePulseLength();
+void measurePulseLength();
 double calculateDistance(uint16_t answerPulseLength);
 
 void DistanceSensor_init();

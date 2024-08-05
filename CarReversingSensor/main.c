@@ -4,15 +4,17 @@
 #include <stdlib.h>
 
 #include "distance_sensor.h"
-#include "lcd_display.h"
+//#include "lcd_display.h"
 //#include "buzzer.h"
 #include "timers.h"
 
-#define BUZZER_PORT PORTC0
+//#define BUZZER_PORT PORTC0
 
 static uint16_t ovfCtn = 0;
 static uint16_t singleBitDuration = 0;
 
+static uint8_t distanceMeasure = 0;
+/*
 void setFrequency(uint8_t bpm) {
 	if(bpm == 0) {
 		singleBitDuration = 0;
@@ -31,21 +33,23 @@ ISR(TIMER2_OVF_vect) {
 		PORTC ^= (1 << BUZZER_PORT);
 	}
 }
+*/
 
 int main(void)
 {
 	sei();
 	Timers_init();
 	//init buzzer//
-	DDRC |= (1 << BUZZER_PORT);
-	PORTC &= ~(1 << BUZZER_PORT);
-	setFrequency(60);
+	//DDRC |= (1 << BUZZER_PORT);
+	//PORTC &= ~(1 << BUZZER_PORT);
+	//setFrequency(60);
 	//-----------//
 	DistanceSensor_init();
-	LcdDisplay_init();
+	//LcdDisplay_init();
 	//Buzzer_init();
     while (1) 
     {
+		/*
 		double distance = DistanceSensor_measureDistance();
 		char buffer[16];
 		dtostrf(distance, 16, 2, buffer);
@@ -68,6 +72,13 @@ int main(void)
 		}
 		else {
 			setFrequency(0);
+		}*/
+		if(distanceMeasure == 0) {
+			distanceMeasure = 1;
+			trigerEchoSensor();
+		}
+		for(int i = 0; i<1; i++) {
+			int a = 0;
 		}
     }
 }
