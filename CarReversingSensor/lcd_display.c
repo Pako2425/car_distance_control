@@ -1,17 +1,17 @@
 #define F_CPU 160000000
 #include <avr/io.h>
-#include <avr/delay.h>
 #include <string.h>
 
 #include "lcd_display.h"
+#include "timers.h"
 
 void send4Bits(uint8_t bits) {
 	PORTD &= 0x0F;
 	PORTD |= (bits << 4);
 	PORTB |= (1 << E);
-	_delay_us(100);
+	milis(1);
 	PORTB &= ~(1 << E);
-	_delay_us(100);
+	milis(1);
 }
 
 void sendCommand(uint8_t cmnd) {
@@ -38,24 +38,24 @@ void LcdDisplay_init() {
 	PORTB &= ~(1 << RS);
 	PORTB &= ~(1 << E);
 	
-	_delay_ms(20);
+	milis(20);
 	send4Bits(0x03);
-	_delay_ms(1);
+	milis(1);
 	send4Bits(0x03);
-	_delay_ms(1);
+	milis(1);
 	send4Bits(0x03);
-	_delay_ms(1);
+	milis(1);
 	send4Bits(0x02);
-	_delay_ms(1);
+	milis(1);
 	
 	sendCommand(0x02);
-	_delay_ms(1);
+	milis(1);
 	sendCommand(0x0C);
-	_delay_ms(1);
+	milis(1);
 	sendCommand(0x06);
-	_delay_ms(1);
+	milis(1);
 	sendCommand(0x01);
-	_delay_ms(10);
+	milis(10);
 }
 
 void LcdDisplay_display(const char* content) {
@@ -65,9 +65,11 @@ void LcdDisplay_display(const char* content) {
 	
 	size_t length = strlen(content);
 	sendCommand(0x02);
-	_delay_us(10);
+	//_delay_us(10);
+	milis(1);
 	for(size_t i = 0; i < length; i++) {
 		sendData(content[i]);
-		_delay_us(10);
+		//_delay_us(10);
+		milis(1);
 	}
 }

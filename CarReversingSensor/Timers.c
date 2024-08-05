@@ -1,6 +1,8 @@
 #include "timers.h"
 
-#include <avr/io.h>
+static uint16_t ovfTimer0Ctn = 0;
+static uint8_t milisRunning = 0;
+static uint16_t delayTime = 0;
 
 void initTimer0() {
 	TCCR0A |= (1 << WGM01);
@@ -42,7 +44,7 @@ void stopTimer1() {
 }
 
 void startTimer0() {
-	TCCR0B |= (1 << CS00);
+	TCCR0B |= (1 << CS01) | (1 << CS00);
 }
 
 void startTimer1() {
@@ -56,3 +58,25 @@ void resetTimer0() {
 void resetTimer1() {
 	TCNT1 = 0;
 }
+
+void milis(uint16_t timeInMs) {
+	if(milisRunning == 0) {
+		milisRunning = 1;
+		ovfTimer0Ctn = 0;
+		delayTime = timeInMs;
+		resetTimer0();
+		startTimer0();
+		while(milisRunning) {}
+		stopTimer0();
+	}
+}
+
+ISR(TIMER0_COMPA_vect) {
+	if(ovfTimer0Ctn < delayTime) {
+		ovfTimer0Ctn++;
+	}
+	else {
+		milisRunning = 0;
+	}
+}
+
